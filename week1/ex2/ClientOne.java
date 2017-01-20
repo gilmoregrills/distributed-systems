@@ -3,16 +3,16 @@ import java.io.*;
 
 public class ClientOne {
 	public static void main(String[] args) {
-		startClient(args[0]);
+		startClient(args[0], args[1]);
 	}
 
-	public static void startClient(String a) {
+	public static void startClient(String msg, String hostname) {
 		try {
-			Socket client = new Socket(InetAddress.getLocalHost(), 4444);
+			Socket client = new Socket(hostname, 20009);
 			System.out.println(client.getLocalPort());
 			//PrintWriter output = new PrintWriter(client.getOutputStream(), true);
 			DataOutputStream output = new DataOutputStream(client.getOutputStream());
-			output.writeUTF(a);
+			output.writeUTF(msg);
 			output.flush();
 			output.close();
 

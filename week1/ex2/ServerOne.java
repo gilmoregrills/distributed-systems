@@ -8,8 +8,8 @@ public class ServerOne {
 
 	public static void startServer() {
 		try {
-			ServerSocket server = new ServerSocket(4444/*, 50, InetAddress.getLocalHost()*/);
-			System.out.println("port: "+server.getLocalPort());
+			ServerSocket server = new ServerSocket(20009, 50, InetAddress.getLocalHost());
+			System.out.println("port: "+server.getLocalPort()+"\nhost: "+InetAddress.getLocalHost());
 			Socket clientSocket = server.accept();
 			BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			System.out.println(input.readLine());
