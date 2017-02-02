@@ -13,8 +13,6 @@ public class ClientOne {
 			//PrintWriter output = new PrintWriter(client.getOutputStream(), true);
 			DataOutputStream output = new DataOutputStream(client.getOutputStream());
 			output.writeUTF(msg);
-			output.flush();
-			output.close();
 
 		} catch (IOException e) {
 			e.printStackTrace(System.out);
