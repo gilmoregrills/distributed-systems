@@ -19,19 +19,17 @@ public class ServerOne {
 				BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				String word = input.readLine();
 				System.out.println(word);
-				if (!server.isClosed()) {
-					if (word == "red") {
-						redVote++;
-						System.out.println("+1 for red");
-					} else if (word == "blue") {
-						blueVote++;
-						System.out.println("+1 for blue");
-					} else if (word == "green") {
-						greenVote++;
-						System.out.println("+1 for green");
-					} else if (word == "count") {
-						System.out.println("Green got: "+greenVote+" votes, red got: "+redVote+" votes, and blue got: "+blueVote+ "votes.");
-					}
+				if (word.equals("red")) {
+					redVote++;
+					System.out.println("+1 for red");
+				} else if (word.equals("blue")) {
+					blueVote++;
+					System.out.println("+1 for blue");
+				} else if (word.equals("green")) {
+					greenVote++;
+					System.out.println("+1 for green");
+				} else if (word.equals("count")) {
+					System.out.println("Green got: "+greenVote+" votes, red got: "+redVote+" votes, and blue got: "+blueVote+ "votes.");
 				}
 			} while(!server.isClosed());
 	
