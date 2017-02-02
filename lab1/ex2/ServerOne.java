@@ -8,7 +8,7 @@ public class ServerOne {
 
 	public static void startServer() {
 		try {
-			ServerSocket server = new ServerSocket(20009, 50, InetAddress.getLocalHost());
+			ServerSocket server = new ServerSocket(20009, 50);
 			System.out.println("port: "+server.getLocalPort()+"\nhost: "+InetAddress.getLocalHost());
 			Socket clientSocket = server.accept();
 			BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
