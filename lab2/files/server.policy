@@ -1,0 +1,5 @@
+grant codeBase "file:/home/graham/teaching/rmi/Hello/-" {
+		permission java.net.SocketPermission "your IP address here/16",  "accept,resolve";
+		permission java.util.logging.LoggingPermission "control";
+    permission java.util.PropertyPermission "java.rmi.server.hostname", "write";
+};
