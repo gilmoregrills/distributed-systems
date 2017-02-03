@@ -14,7 +14,6 @@ public class ServerOne {
 				//System.out.println("We made it to the do!");			
 				Socket clientSocket = server.accept();
 				BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				System.out.println(input.readLine());
 			} while(!server.isClosed());
 	
 		}

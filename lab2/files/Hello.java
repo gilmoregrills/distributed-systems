@@ -1,8 +1,9 @@
 import java.rmi.*;
 import java.rmi.registry.*;
 import java.rmi.server.*;
+import java.io.*;
 
-public class Hello implements HelloInterface {
+public class Hello implements HelloInterface, Serializable {
 	
 	String phrase = "";
 
@@ -20,7 +21,8 @@ public class Hello implements HelloInterface {
 			 Hello hello = new Hello("Hello, World!");
 			 //hello.setLog(System.out);
 			 System.out.println("Hello object: " + hello.toString());
-       			 Registry registry = LocateRegistry.getRegistry(400);
+       			 Registry registry = LocateRegistry.getRegistry(1099);
+			 System.out.println("registry found");
        			 registry.rebind("Hello", hello);
        			 System.out.println("ComputeEngine bound");
 	 		 System.out.println("registry listing " + registry.list());
