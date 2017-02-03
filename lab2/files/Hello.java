@@ -18,12 +18,12 @@ public class Hello implements HelloInterface {
     		try {
 		         System.setProperty("java.rmi.server.hostname", "192.168.1.237");
 			 Hello hello = new Hello("Hello, World!");
-	//		 hello.setLog(System.out);
-//			 System.out.println("Hello object: " + hello.toString());
-       			 Registry registry = LocateRegistry.getRegistry(20005);
+			 hello.setLog(System.out);
+			 System.out.println("Hello object: " + hello.toString());
+       			 Registry registry = LocateRegistry.getRegistry(81);
        			 registry.rebind("Hello", hello);
        			 System.out.println("ComputeEngine bound");
- //      		 System.out.println("registry listing " + registry.list());
+	 		 System.out.println("registry listing " + registry.list());
 
 			 System.out.println ("Hello Server is ready.");
     		} catch (Exception e) {
