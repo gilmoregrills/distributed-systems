@@ -20,7 +20,7 @@ public class Hello implements HelloInterface {
 			 Hello hello = new Hello("Hello, World!");
 			 //hello.setLog(System.out);
 			 System.out.println("Hello object: " + hello.toString());
-       			 Registry registry = LocateRegistry.getRegistry(81);
+       			 Registry registry = LocateRegistry.getRegistry(400);
        			 registry.rebind("Hello", hello);
        			 System.out.println("ComputeEngine bound");
 	 		 System.out.println("registry listing " + registry.list());
