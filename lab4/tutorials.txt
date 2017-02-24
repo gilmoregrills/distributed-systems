@@ -1,0 +1,5 @@
+we should be working through the following tuts: 
+
+https://netbeans.org/kb/trails/java-ee.html
+https://netbeans.org/kb/docs/web/quickstart-webapps.html
+http://docs.oracle.com/javaee/6/tutorial/doc/docinfo.html
