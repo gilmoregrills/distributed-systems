@@ -16,38 +16,63 @@ import java.util.*;
  */
 public class DecoderRing {
 
-	String cipherPath = "~/ciphertext1.txt";
-	String keyPath;
-	ArrayList<Character> cipherText;
-	ArrayList<Character> key;
-
-	public static void Main(String[] args) {
-		cipherText = hexFileToChars(cipherPath);
-		key = hexFileToChars(keyPath);
+	public static void main(String[] args) {
+		String cipherPath = "/home/gilmoregrills/distributed-systems/security_cwk/ciphertext1.txt";
+		String keyPath = "/home/gilmoregrills/distributed-systems/security_cwk/key.txt";
+		String outputPath = "/home/gilmoregrills/distributed-systems/security_cwk/output.txt";
+		ArrayList<Character> cipherText = hexFileToChars(cipherPath);
+		ArrayList<Character> key = hexFileToChars(keyPath);
+		ArrayList<Character> result = xorWithArray(cipherText, key);
+		writeToFile(result, outputPath);
 
 	}// function main
 
-	public static void hexFileToChars(String path) {
+	public static ArrayList<Character> hexFileToChars(String path) {
+		String hex = "";
 		char character;
 		ArrayList<Character> output = new ArrayList<Character>();
 		try {
 			File text1 = new File(path);
 			BufferedReader reader = new BufferedReader(new FileReader(text1));
-			while ((character = r.read()) != null) {
-				output.add(character);	
-			}
-
+			hex = reader.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		for (int i = 0; i < hex.length(); i += 3) {
+			String x = hex.substring(i, i+2);
+			character = (char)Integer.parseInt(x, 16);
+			output.add(character);
+			System.out.println(x+" -> "+character);
 		}
 		return output;
 	}//function hexFileToChars
 
-	public static void xorWithArray(char[] text, char[] key) {
-
+	public static ArrayList<Character> xorWithArray(ArrayList<Character> text, ArrayList<Character> key) {
+		ArrayList<Character> output = new ArrayList<Character>();
+		for (int i = 0; i < text.size(); i++) {
+			char xor = (char) ((text.get(i)) ^ (key.get(i)));
+			System.out.println(text.get(i)+" -> "+xor);
+			output.add(xor);
+		}
+		return output;
 	}//function xorWithArray
 
-	public static void writeToFile(char[] output) {
-
+	public static void writeToFile(ArrayList<Character> output, String path) {
+		StringBuilder toFile = new StringBuilder();
+		for (char c : output) {
+			toFile.append(c);
+		}
+		String s = toFile.toString();
+		System.out.println(s);
+		try {
+			File outputFile = new File(path);
+			if (!outputFile.exists()) {
+				outputFile.createNewFile();
+			}
+			BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+			writer.write(s);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}							
 	}//function writeToFile
 }//class DecoderRing
