@@ -63,16 +63,22 @@ public class DecoderRing {
 			toFile.append(c);
 		}
 		String s = toFile.toString();
-		System.out.println(s);
+		BufferedWriter buff = null;
 		try {
+			System.out.println("writing: "+s);
+			System.out.println("to: "+path);
 			File outputFile = new File(path);
-			if (!outputFile.exists()) {
-				outputFile.createNewFile();
-			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-			writer.write(s);
+			Writer writer = new FileWriter(outputFile);
+			buff = new BufferedWriter(writer);
+			buff.write(s);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}							
+		} finally {
+			try {
+				buff.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}	
 	}//function writeToFile
 }//class DecoderRing
