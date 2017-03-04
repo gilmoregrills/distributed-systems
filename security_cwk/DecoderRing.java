@@ -3,6 +3,7 @@
  * Deciphering Hex Dumps!
  */
 import java.io.*;
+import java.util.*;
 
 /**
  * So I think the idea with this is to convert any hex
@@ -15,17 +16,34 @@ import java.io.*;
  */
 public class DecoderRing {
 
-	String path = "DistSysSec.txt"
+	String cipherPath = "~/ciphertext1.txt";
+	String keyPath;
+	ArrayList<Character> cipherText;
+	ArrayList<Character> key;
 
 	public static void Main(String[] args) {
+		cipherText = hexFileToChars(cipherPath);
+		key = hexFileToChars(keyPath);
 
 	}// function main
 
-	public static char[] hexFileToChars(String path) {
-		
+	public static void hexFileToChars(String path) {
+		char character;
+		ArrayList<Character> output = new ArrayList<Character>();
+		try {
+			File text1 = new File(path);
+			BufferedReader reader = new BufferedReader(new FileReader(text1));
+			while ((character = r.read()) != null) {
+				output.add(character);	
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return output;
 	}//function hexFileToChars
 
-	public static char[] xorWithArray(char[] text, char[] key) {
+	public static void xorWithArray(char[] text, char[] key) {
 
 	}//function xorWithArray
 
