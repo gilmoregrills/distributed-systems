@@ -17,8 +17,8 @@ import java.util.*;
 public class DecoderRing {
 
 	public static void main(String[] args) {
-		String cipherPath = "/home/gilmoregrills/distributed-systems/security_cwk/ciphertext1.txt";
-		String keyPath = "/home/gilmoregrills/distributed-systems/security_cwk/key.txt";
+		String cipherPath = "/home/gilmoregrills/distributed-systems/security_cwk/ciphertext11.txt";
+		String keyPath = "/home/gilmoregrills/distributed-systems/security_cwk/ciphertext1.txt";
 		String outputPath = "/home/gilmoregrills/distributed-systems/security_cwk/output.txt";
 		ArrayList<Character> cipherText = hexFileToChars(cipherPath);
 		ArrayList<Character> key = hexFileToChars(keyPath);
@@ -49,7 +49,8 @@ public class DecoderRing {
 
 	public static ArrayList<Character> xorWithArray(ArrayList<Character> text, ArrayList<Character> key) {
 		ArrayList<Character> output = new ArrayList<Character>();
-		for (int i = 0; i < text.size(); i++) {
+		int len = (text.size() < key.size()) ? text.size() : key.size();
+		for (int i = 0; i < len; i++) {
 			char xor = (char) ((text.get(i)) ^ (key.get(i)));
 			System.out.println(text.get(i)+" -> "+xor);
 			output.add(xor);
