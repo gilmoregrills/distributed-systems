@@ -18,7 +18,7 @@ public class DecoderRing {
 
 	public static void main(String[] args) {
 		String cipherPath = "/home/gilmoregrills/distributed-systems/security_cwk/ciphertext11.txt";
-		String keyPath = "/home/gilmoregrills/distributed-systems/security_cwk/ciphertext1.txt";
+		String keyPath = "/home/gilmoregrills/distributed-systems/security_cwk/ciphertext2.txt";
 		String outputPath = "/home/gilmoregrills/distributed-systems/security_cwk/output.txt";
 		ArrayList<Character> cipherText = hexFileToChars(cipherPath);
 		ArrayList<Character> key = hexFileToChars(keyPath);
@@ -40,7 +40,7 @@ public class DecoderRing {
 		}
 		for (int i = 0; i < hex.length(); i += 3) {
 			String x = hex.substring(i, i+2);
-			character = (char)Integer.parseInt(x, 16);
+			character = (char)Integer.parseInt(x, 16);	
 			output.add(character);
 			System.out.println(x+" -> "+character);
 		}
