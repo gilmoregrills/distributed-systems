@@ -51,9 +51,7 @@ public class DecoderRing {
 		int len = (text.size() < key.size()) ? text.size() : key.size();
 		for (int i = 0; i < len; i++) {
 			char xor = (char) ((text.get(i)) ^ (key.get(i)));
-			System.out.println(text.get(i)+" xor with "+key.get(i)+" -> "+xor);
 			output.add(xor);
-			output.add(' ');
 		}
 		return output;
 	}//function xorWithArray
