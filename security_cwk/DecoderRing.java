@@ -7,12 +7,11 @@ import java.util.*;
 
 /**
  * So I think the idea with this is to convert any hex
- * into an array of chars so it's easy to work with 
- * and then to xor it along with another arry of chars
- * this leaves me plenty of flexibility regarding which 
- * ciphertexts I want to xor together, or allows me to
- * use any custom keys if I want to as I get closer to
- * deciphering, intermediate results can output to files
+ * into an array of chars so it's easy to work with and
+ * is human readable, XOR it against another array
+ * of chars, then output as hex to a file and as a string
+ * to the console so that I can see the results easily 
+ * and quickly feed the results back into the script. 
  */
 public class DecoderRing {
 
@@ -20,17 +19,17 @@ public class DecoderRing {
 		String cipherPath = "/home/gilmoregrills/distributed-systems/security_cwk/"+args[0];
 		String keyPath = "/home/gilmoregrills/distributed-systems/security_cwk/"+args[1];
 		String outputPath = "/home/gilmoregrills/distributed-systems/security_cwk/output.txt";
-		ArrayList<Character> cipherText = hexFileToChars(cipherPath);
-		ArrayList<Character> key = hexFileToChars(keyPath);
-		ArrayList<Character> result = xorWithArray(cipherText, key);
+		char[] cipherText = hexFileToChars(cipherPath);
+		char[] key = hexFileToChars(keyPath);
+		char[] result = xor(cipherText, key);
 		writeToFile(result, outputPath);
 
 	}// function main
 
-	public static ArrayList<Character> hexFileToChars(String path) {
+	public static char[] hexFileToChars(String path) {
 		String hex = "";
-		char character;
-		ArrayList<Character> output = new ArrayList<Character>();
+		char[] out;
+		int count = 0;
 		try {
 			File text1 = new File(path);
 			BufferedReader reader = new BufferedReader(new FileReader(text1));
@@ -38,38 +37,43 @@ public class DecoderRing {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		out = new char[(hex.length()+1)/3t s];
 		for (int i = 0; i < hex.length(); i += 3) {
 			String x = hex.substring(i, i+2);
-			character = (char)Integer.parseInt(x, 16);	
-			output.add(character);
+			out[count] = (char)Integer.parseInt(x, 16);
+			count++;
 		}
-		return output;
+		System.out.println(Arrays.toString(out));
+		return out;
 	}//function hexFileToChars
 
-	public static ArrayList<Character> xorWithArray(ArrayList<Character> text, ArrayList<Character> key) {
-		ArrayList<Character> output = new ArrayList<Character>();
-		int len = (text.size() < key.size()) ? text.size() : key.size();
+	public static char[] xor(char[] text, char[] key) {
+		int len = (text.length < key.length) ? text.length : key.length;
+		char[] out = new char[len];
 		for (int i = 0; i < len; i++) {
-			char xor = (char) ((text.get(i)) ^ (key.get(i)));
-			output.add(xor);
+			out[i] = (char) ((text[i]) ^ (key[i]));
 		}
-		return output;
-	}//function xorWithArray
+		return out;
+	}//function xor
 
-	public static void writeToFile(ArrayList<Character> output, String path) {
-		StringBuilder toFile = new StringBuilder();
-		for (char c : output) {
-			toFile.append(c);
+	public static void writeToFile(char[] out, String path) {
+		StringBuilder results = new StringBuilder();//print one to the console
+		StringBuilder toFile = new StringBuilder();//one to a file as hex
+		for (char c : out) {
+			results.append(c);
+			toFile.append(Integer.toHexString((int) c));
+			toFile.append(" ");
 		}
-		String s = toFile.toString();
+		String res = results.toString();
+		String hexOut = toFile.toString();
+		System.out.println("results: "+res);
 		BufferedWriter buff = null;
 		try {
-			System.out.println("writing: "+s);
-			System.out.println("to: "+path);
+			System.out.println("writing to: "+path);
 			File outputFile = new File(path);
 			Writer writer = new FileWriter(outputFile);
 			buff = new BufferedWriter(writer);
-			buff.write(s);
+			buff.write(hexOut);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
