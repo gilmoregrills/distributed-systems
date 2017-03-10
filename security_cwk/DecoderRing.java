@@ -10,19 +10,19 @@ import java.util.*;
  * into an array of chars so it's easy to work with and
  * is human readable, XOR it against another array
  * of chars, then output as hex to a file and as a string
- * to the console so that I can see the results easily 
- * and quickly feed the results back into the script. 
+ * to the console so that I can see the results easily
+ * and quickly feed the results back into the script.
  */
 public class DecoderRing {
 
 	public static void main(String[] args) {
-		String cipherPath = "/home/gilmoregrills/distributed-systems/security_cwk/"+args[0];
-		String keyPath = "/home/gilmoregrills/distributed-systems/security_cwk/"+args[1];
-		String outputPath = "/home/gilmoregrills/distributed-systems/security_cwk/output.txt";
-		char[] cipherText = hexFileToChars(cipherPath);
-		char[] key = hexFileToChars(keyPath);
-		char[] result = xor(cipherText, key);
-		writeToFile(result, outputPath);
+		String cipherPath = "hex/"+args[0];//assigning the paths of input files
+		String keyPath = "hex/"+args[1];
+		String outputPath = "hex/output.txt";//assigning path of output file
+		char[] cipherText = hexFileToChars(cipherPath);//parse first input into char array
+		char[] key = hexFileToChars(keyPath);//parse second input
+		char[] result = xor(cipherText, key);//perform the xor, storing output in char array
+		writeToFile(result, outputPath);//write results to file and print them to terminal
 
 	}// function main
 
@@ -37,13 +37,13 @@ public class DecoderRing {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		out = new char[(hex.length()+1)/3t s];
+		out = new char[(hex.length()+1)/3];
 		for (int i = 0; i < hex.length(); i += 3) {
 			String x = hex.substring(i, i+2);
 			out[count] = (char)Integer.parseInt(x, 16);
 			count++;
 		}
-		System.out.println(Arrays.toString(out));
+		//System.out.println(Arrays.toString(out)); - for debugging
 		return out;
 	}//function hexFileToChars
 
@@ -57,8 +57,8 @@ public class DecoderRing {
 	}//function xor
 
 	public static void writeToFile(char[] out, String path) {
-		StringBuilder results = new StringBuilder();//print one to the console
-		StringBuilder toFile = new StringBuilder();//one to a file as hex
+		StringBuilder results = new StringBuilder();//one for the console
+		StringBuilder toFile = new StringBuilder();//one for the file
 		for (char c : out) {
 			results.append(c);
 			toFile.append(Integer.toHexString((int) c));
@@ -82,6 +82,6 @@ public class DecoderRing {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-		}	
+		}
 	}//function writeToFile
 }//class DecoderRing
